@@ -1,8 +1,6 @@
 name: Download Materialize
 
 on:
-  push:
-    branches: [ master ]
   schedule:
     - cron: '0 0 * * *' # 每天 0 点执行
 
