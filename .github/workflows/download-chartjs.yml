@@ -18,8 +18,8 @@ jobs:
       - name: Download Chart JS
         run: |
           curl -sL https://github.com/chartjs/Chart.js/releases/download/v${{ steps.latest_version.outputs.version }}/chart.js-${{ steps.latest_version.outputs.version }}.tgz -o chartjs.tgz
-          mkdir -p chartjs
-          tar zxvf chartjs.tgz -C chartjs
+          mkdir -p chartjs/v${{ steps.latest_version.outputs.version }}
+          tar zxvf chartjs.tgz -C chartjs/v${{ steps.latest_version.outputs.version }}
           rm chartjs.tgz
       - name: Commit Files
         uses: EndBug/add-and-commit@v7
