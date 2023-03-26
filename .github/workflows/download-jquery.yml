@@ -13,7 +13,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
+        
+      - name: Get Latest Version
+        id: latest_version
+        run: echo "::set-output name=version::$(curl -s https://developers.google.com/speed/libraries/ | sed -n '/jquery/,/<\/tr>/p' | grep -oP '.*?jquery.*?\.js' | cut -d'"' -f2 | head -n 1 | cut -d'/' -f7)"
+      
       - name: Download jQuery
         run: |
           latest_version=$(curl -s https://developers.google.com/speed/libraries/ | sed -n '/jquery/,/<\/tr>/p' | grep -oP '.*?jquery.*?\.js' | cut -d'"' -f2 | head -n 1)
@@ -25,7 +29,7 @@ jobs:
       - name: Commit Files
         uses: EndBug/add-and-commit@v7
         with:
-          message: 'Update jQuery'
+          message: 'Update jQuery to ${{ steps.latest_version.outputs.version }}'
           add: '*.min.js'
 
       - name: Push Changes
