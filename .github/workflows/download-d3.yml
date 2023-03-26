@@ -1,6 +1,8 @@
 name: Download D3
 
 on:
+  push:
+    branches: [ master ]
   schedule:
     - cron: '0 0 * * *' # 每天 0 点执行
 
@@ -16,8 +18,8 @@ jobs:
       - name: Download Bootstrap
         run: |
           curl -sL $(curl -sL https://d3js.org/ | grep -oP 'https://d3js.org.*?\.js') -o d3.${{ steps.latest_version.outputs.version }}.min.js
-          mkdir -p d3
-          mv d3.${{ steps.latest_version.outputs.version }}.min.js d3
+          mkdir -p d3/$(curl -s https://api.github.com/repos/d3/d3/releases/latest | grep 'tag_name' | cut -d\" -f4)
+          mv d3.${{ steps.latest_version.outputs.version }}.min.js d3/$(curl -s https://api.github.com/repos/d3/d3/releases/latest | grep 'tag_name' | cut -d\" -f4)
       - name: Commit Files
         uses: EndBug/add-and-commit@v7
         with:
