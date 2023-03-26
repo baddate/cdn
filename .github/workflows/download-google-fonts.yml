@@ -19,8 +19,8 @@ jobs:
     - name: Download fonts
       run: |
         mkdir -p fonts/google
-        cd fonts/google
-        gftools download all
+        gftools download -d font_metadata
+        gftools download -d fonts/google -c font_metadata/google/fonts/fonts.conf
     - name: Commit Files
       uses: EndBug/add-and-commit@v7
       with:
