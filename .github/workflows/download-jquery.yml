@@ -16,7 +16,7 @@ jobs:
         
       - name: Get Latest Version
         id: latest_version
-        run: echo "::set-output name=version::$(curl -s https://developers.google.com/speed/libraries/ | sed -n '/jquery/,/<\/tr>/p' | grep -oP '.*?jquery.*?\.js' | cut -d'"' -f2 | head -n 1 | cut -d'/' -f7)"
+        run: echo "version=$(curl -s https://developers.google.com/speed/libraries/ | sed -n '/jquery/,/<\/tr>/p' | grep -oP '.*?jquery.*?\.js' | cut -d'"' -f2 | head -n 1 | cut -d'/' -f7)" >> $GITHUB_OUTPUT
       
       - name: Download jQuery
         run: |
@@ -29,7 +29,7 @@ jobs:
       - name: Commit Files
         uses: EndBug/add-and-commit@v7
         with:
-          message: 'Update jQuery to ${{ steps.latest_version.outputs.version }}'
+          message: 'Update jQuery to ${{ secrets.GITHUB_OUTPUT }}'
           add: '*.min.js'
 
       - name: Push Changes
