@@ -18,7 +18,7 @@ jobs:
       - name: Download Bootstrap
         run: |
           curl -sL https://github.com/Dogfalo/materialize/releases/download/${{ steps.latest_version.outputs.version }}/materialize-v${{ steps.latest_version.outputs.version }}.zip -o materialize.zip
-          unzip materialize.zip
+          unzip -o materialize.zip
           rm materialize.zip
       - name: Commit Files
         uses: EndBug/add-and-commit@v7
