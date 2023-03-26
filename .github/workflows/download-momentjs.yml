@@ -14,8 +14,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Download Moment JS
         run: |
-          curl -sL https://momentjs.com/downloads/moment.min.js
-          curl -sL https://momentjs.com/downloads/moment-with-locales.min.js
+          curl -sL https://momentjs.com/downloads/moment.min.js -o moment.min.js
+          curl -sL https://momentjs.com/downloads/moment-with-locales.min.js -o moment-with-locales.min.js
           mkdir -p momentjs
           mv momentjs.min.js momentjs
           mv moment-with-locales.min.js momentjs
