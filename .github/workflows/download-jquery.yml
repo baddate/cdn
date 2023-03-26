@@ -1,0 +1,31 @@
+name: Download jQuery and Upload to Repository
+
+on:
+  push:
+    branches:
+      - master
+   schedule:
+      - cron: '0 0 * * *' # 每天 0 点执行
+
+jobs:
+  download-jquery:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download jQuery
+        run: |
+          curl -L $(curl -sL https://code.jquery.com/ | grep -oP 'href="(.*?jquery.*?\.js)"' | cut -d'"' -f2 | head -n 1) -o jquery.min.js
+
+      - name: Commit Files
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: 'Update jQuery'
+          add: '*.min.js'
+
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
