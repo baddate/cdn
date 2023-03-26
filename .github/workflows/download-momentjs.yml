@@ -17,7 +17,7 @@ jobs:
           curl -sL https://momentjs.com/downloads/moment.min.js -o moment.min.js
           curl -sL https://momentjs.com/downloads/moment-with-locales.min.js -o moment-with-locales.min.js
           mkdir -p momentjs
-          mv momentjs.min.js momentjs
+          mv moment.min.js momentjs
           mv moment-with-locales.min.js momentjs
       - name: Commit Files
         uses: EndBug/add-and-commit@v7
