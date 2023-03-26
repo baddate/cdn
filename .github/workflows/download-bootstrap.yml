@@ -1,0 +1,26 @@
+name: Download Bootstrap
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *' # 每天 0 点执行
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download latest Bootstrap
+        run: |
+          # 下载最新版本的 Bootstrap
+          curl -L https://github.com/twbs/bootstrap/releases/latest/download/bootstrap.zip -o bootstrap.zip
+          # 创建目录并解压到指定目录
+          mkdir -p public/bootstrap
+          unzip -q bootstrap.zip -d public/bootstrap
+          # 删除压缩包
+          rm bootstrap.zip
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v4
+        with:
+          message: "Update Bootstrap library"
+          add: "public/bootstrap"
