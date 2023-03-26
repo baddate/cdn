@@ -24,7 +24,7 @@ jobs:
       - name: Commit Files
         uses: EndBug/add-and-commit@v7
         with:
-          message: 'Update D3 to v${{ GITHUB_OUTPUT }}'
+          message: 'Update D3 to v${{ secrets.GITHUB_OUTPUT }}'
           add: 'd3/*'
       - name: Push changes
         uses: ad-m/github-push-action@master
