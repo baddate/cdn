@@ -13,17 +13,18 @@ jobs:
       - name: Get Latest Version
         id: latest_version
         run: echo "::set-output name=version::$(curl -s https://api.github.com/repos/twbs/bootstrap/releases/latest | grep 'tag_name' | cut -d\" -f4 | sed 's/^.//')"
-      - name: Download latest Bootstrap
+      - name: Download Bootstrap
         run: |
-          # 下载最新版本的 Bootstrap
           curl -sL https://github.com/twbs/bootstrap/releases/download/v${{ steps.latest_version.outputs.version }}/bootstrap-${{ steps.latest_version.outputs.version }}-dist.zip -o bootstrap.zip
           unzip bootstrap.zip
-          mkdir -p public/bootstrap
-          unzip -q bootstrap.zip -d public/bootstrap
-          # 删除压缩包
-          rm bootstrap.zip
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v4
+      - name: Add and Commit Files
+        run: |
+          git config user.name "baddate"
+          git config user.email "me@oii.lol"
+          git add bootstrap-${{ steps.latest_version.outputs.version }}-dist
+          git commit -m "Update Bootstrap to v${{ steps.latest_version.outputs.version }}"
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
         with:
-          message: "Update Bootstrap library"
-          add: "public/bootstrap"
+          branch: main
+          github_token: ${{ secrets.TOKEN }}
