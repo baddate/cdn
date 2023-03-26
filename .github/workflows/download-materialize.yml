@@ -1,0 +1,33 @@
+name: Download Materialize
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: '0 0 * * *' # 每天 0 点执行
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Get Latest Version
+        id: latest_version
+        run: echo "::set-output name=version::$(curl -s https://api.github.com/repos/Dogfalo/materialize/releases/latest | grep 'tag_name' | cut -d\" -f4 | sed 's/^.//')"
+      - name: Download Bootstrap
+        run: |
+          curl -sL https://github.com/Dogfalo/materialize/releases/download/v${{ steps.latest_version.outputs.version }}/materialize-${{ steps.latest_version.outputs.version }}.zip -o materialize.zip
+          mkdir -p materialize
+          unzip -o materialize.zip -d materialize
+          rm materialize.zip
+      - name: Commit Files
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: 'Update Materialize to v${{ steps.latest_version.outputs.version }}'
+          add: 'materialize/materialize-${{ steps.latest_version.outputs.version }}'
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
