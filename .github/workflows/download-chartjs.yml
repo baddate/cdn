@@ -17,7 +17,7 @@ jobs:
         run: echo "::set-output name=version::$(curl -s https://api.github.com/repos/chartjs/Chart.js/releases/latest | grep 'tag_name' | cut -d\" -f4 | cut -d'v' -f2)"
       - name: Download Chart JS
         run: |
-          curl -sL https://github.com/chartjs/Chart.js/releases/download/v${{ steps.latest_version.outputs.version }}/chartjs-${{ steps.latest_version.outputs.version }}.tgz -o chartjs.tgz
+          curl -sL https://github.com/chartjs/Chart.js/releases/download/v${{ steps.latest_version.outputs.version }}/chart.js-${{ steps.latest_version.outputs.version }}.tgz -o chartjs.tgz
           mkdir -p chartjs
           tar zxvf chartjs.tgz -C chartjs
           rm chartjs.tgz
