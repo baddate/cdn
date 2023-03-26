@@ -10,10 +10,13 @@ jobs:
   download:
     runs-on: ubuntu-latest
     steps:
+      - name: Get Latest Version
+        id: latest_version
+        run: echo "::set-output name=version::$(curl -s https://api.github.com/repos/twbs/bootstrap/releases/latest | grep 'tag_name' | cut -d\" -f4)"
       - name: Download latest Bootstrap
         run: |
           # 下载最新版本的 Bootstrap
-          curl -L https://github.com/twbs/bootstrap/releases/latest/download/bootstrap.zip -o bootstrap.zip
+          curl -L https://github.com/twbs/bootstrap/releases/latest/download/bootstrap-{{ steps.latest_version.outputs.version }}-dist.zip -o bootstrap.zip
           # 创建目录并解压到指定目录
           mkdir -p public/bootstrap
           unzip -q bootstrap.zip -d public/bootstrap
