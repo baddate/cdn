@@ -28,6 +28,7 @@ jobs:
           git commit -m "Update Bootstrap to v${{ steps.latest_version.outputs.version }}"
       - name: Push changes
         uses: ad-m/github-push-action@master
+        if: ${{ github.event_name == 'push' && github.event.before != github.sha }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: master
