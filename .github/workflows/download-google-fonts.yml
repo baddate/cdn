@@ -22,10 +22,10 @@ jobs:
         cd fonts/google
         gftools download all
     - name: Commit Files
-        uses: EndBug/add-and-commit@v7
-        with:
-          message: 'Downloaded Google Fonts'
-          add: 'fonts/*'
+      uses: EndBug/add-and-commit@v7
+      with:
+        message: 'Downloaded Google Fonts'
+        add: 'fonts/*'
     - name: Push changes
       uses: ad-m/github-push-action@v0.5.0
       with:
