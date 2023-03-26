@@ -25,7 +25,7 @@ jobs:
         uses: EndBug/add-and-commit@v7
         with:
           message: 'Update Materialize to v${{ steps.latest_version.outputs.version }}'
-          add: 'materialize/materialize-${{ steps.latest_version.outputs.version }}'
+          add: 'materialize/*'
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
