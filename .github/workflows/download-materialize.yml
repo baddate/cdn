@@ -13,7 +13,7 @@ jobs:
       - name: Get Latest Version
         id: latest_version
         run: echo "::set-output name=version::$(curl -s https://api.github.com/repos/Dogfalo/materialize/releases/latest | grep 'tag_name' | cut -d\" -f4)"
-      - name: Download Bootstrap
+      - name: Download Materialize
         run: |
           curl -sL https://github.com/Dogfalo/materialize/releases/download/${{ steps.latest_version.outputs.version }}/materialize-v${{ steps.latest_version.outputs.version }}.zip -o materialize.zip
           unzip -o materialize.zip

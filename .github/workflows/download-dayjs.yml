@@ -13,7 +13,7 @@ jobs:
       - name: Get Latest Version
         id: latest_version
         run: echo "version=$(curl -s https://unpkg.com/dayjs | cut -d'@' -f2)"  >> $GITHUB_OUTPUT
-      - name: Download Bootstrap
+      - name: Download Day JS
         run: |
           curl -sL https://unpkg.com/dayjs -o dayjs.min.js
           mkdir -p dayjs/v${{ steps.latest_version.outputs.version }}
