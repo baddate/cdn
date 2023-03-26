@@ -18,7 +18,7 @@ jobs:
       - name: Download Bootstrap
         run: |
           curl -sL https://github.com/twbs/bootstrap/releases/download/v${{ steps.latest_version.outputs.version }}/bootstrap-${{ steps.latest_version.outputs.version }}-dist.zip -o bootstrap.zip
-          mkdir bootstrap
+          mkdir -p bootstrap
           unzip -o bootstrap.zip -d bootstrap
           rm bootstrap.zip
       - name: Add and Commit Files
