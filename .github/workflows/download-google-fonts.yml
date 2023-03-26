@@ -2,9 +2,9 @@ name: Download Google Fonts
 
 on:
   push:
-    branches: [ master ]
-  schedule:
-    - cron: '0 0 * * *' # 每天 0 点执行
+    branches: [ dev ]
+#   schedule:
+#     - cron: '0 0 * * *' # 每天 0 点执行
 
 jobs:
   download-google-fonts:
