@@ -16,7 +16,7 @@ jobs:
       - name: Download latest Bootstrap
         run: |
           # 下载最新版本的 Bootstrap
-          curl -sL https://github.com/twbs/bootstrap/releases/download/v${{ steps.latest_version.outputs.version }}/bootstrap-${{ steps.latest_version.outputs.version }}-dist.zip -o bootstrap.zip
+          curl -sL https://github.com/twbs/bootstrap/releases/download/${{ steps.latest_version.outputs.version }}/bootstrap-${{ steps.latest_version.outputs.version }}-dist.zip -o bootstrap.zip
           unzip bootstrap.zip
           mkdir -p public/bootstrap
           unzip -q bootstrap.zip -d public/bootstrap
