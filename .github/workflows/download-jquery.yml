@@ -16,7 +16,8 @@ jobs:
 
       - name: Download jQuery
         run: |
-          latest_version=$(curl -s https://code.jquery.com/ | grep -oP 'href="(.*?jquery.*?\.js)"' | cut -d'"' -f2 | head -n 1)
+          curl -L https://code.jquery.com/ | grep -oP 'href="(.*?jquery.*?\.js)"' | cut -d'"' -f2 | head -n 1
+          latest_version=$(curl -sL https://code.jquery.com/ | grep -oP 'href="(.*?jquery.*?\.js)"' | cut -d'"' -f2 | head -n 1)
           echo "$latest_version"
           curl -L $latest_version -o jquery.min.js
 
