@@ -16,7 +16,8 @@ jobs:
 
       - name: Download jQuery
         run: |
-          curl -L $(curl -sL https://code.jquery.com/ | grep -oP 'href="(.*?jquery.*?\.js)"' | cut -d'"' -f2 | head -n 1) -o jquery.min.js
+          latest_version=$(curl -s https://code.jquery.com/ | grep -oP 'href="(.*?jquery.*?\.js)"' | cut -d'"' -f2 | head -n 1)
+          curl -L $latest_version -o jquery.min.js
 
       - name: Commit Files
         uses: EndBug/add-and-commit@v7
