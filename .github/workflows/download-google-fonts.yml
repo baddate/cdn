@@ -19,6 +19,7 @@ jobs:
     - name: Download fonts
       run: |
         mkdir -p fonts/google
+        echo "$(gftools --help)"
         gftools download -d font_metadata
         gftools download -d fonts/google -c font_metadata/google/fonts/fonts.conf
     - name: Commit Files
