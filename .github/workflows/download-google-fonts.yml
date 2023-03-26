@@ -20,8 +20,9 @@ jobs:
       run: |
         mkdir -p fonts/google
         echo "$(gftools --help)"
-        cd fonts/google
-        gftools-download all
+        echo "$(gftools -h add-fonts)"
+        cd fonts
+        gftools add-fonts google
 
     - name: Commit Files
       uses: EndBug/add-and-commit@v7
