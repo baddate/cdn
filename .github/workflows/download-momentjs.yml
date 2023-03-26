@@ -1,0 +1,31 @@
+name: Download Moment JS
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: '0 0 * * *' # 每天 0 点执行
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Download Moment JS
+        run: |
+          curl -sL https://momentjs.com/downloads/moment.min.js
+          curl -sL https://momentjs.com/downloads/moment-with-locales.min.js
+          mkdir -p momentjs
+          mv momentjs.min.js momentjs
+          mv moment-with-locales.min.js momentjs
+      - name: Commit Files
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: 'Update Moment JS'
+          add: 'momentjs/*'
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
