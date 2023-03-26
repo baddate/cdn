@@ -21,18 +21,11 @@ jobs:
           mkdir -p bootstrap
           unzip -o bootstrap.zip -d bootstrap
           rm bootstrap.zip
-      - name: Add and Commit Files
-        run: |
-          git fetch
-          if [ "$(git diff --name-only origin/master)" == "" ]; then
-            echo "Repository has no updates"
-          else
-            echo "Repository has updates"
-            git config user.name "baddate"
-            git config user.email "me@oii.lol"
-            git add bootstrap-${{ steps.latest_version.outputs.version }}-dist
-            git commit -m "Update Bootstrap to v${{ steps.latest_version.outputs.version }}"
-          fi
+      - name: Commit Files
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: 'Update Bootstrap to v${{ steps.latest_version.outputs.version }}'
+          add: 'bootstrap/bootstrap-${{ steps.latest_version.outputs.version }}-dist'
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
