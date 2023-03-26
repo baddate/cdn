@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Get Latest Version
         id: latest_version
-        run: echo "::set-output name=version::$(curl -s https://api.github.com/repos/twbs/bootstrap/releases/latest | grep 'tag_name' | cut -d\" -f4)" | grep -o '.\{1\}$'
+        run: echo "::set-output name=version::$(curl -s https://api.github.com/repos/twbs/bootstrap/releases/latest | grep 'tag_name' | cut -d\" -f4)" | sed 's/^.//'
       - name: Download latest Bootstrap
         run: |
           # 下载最新版本的 Bootstrap
